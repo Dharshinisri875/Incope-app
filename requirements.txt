@@ -11,11 +11,11 @@ Flask==3.1.1
 idna==3.10
 itsdangerous==2.2.0
 Jinja2==3.1.6
-Kivy==2.3.1
-kivy-deps.angle==0.4.0
-kivy-deps.glew==0.3.1
-Kivy-Garden==0.1.5
-kivy_deps.sdl2==0.8.0
+
+
+
+
+
 MarkupSafe==3.0.2
 mysql-connector-python==9.3.0
 pycparser==2.22
