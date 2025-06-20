@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sales Summary</title>
+</head>
+<body>
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="{{ url_for('static', filename='cashtrack_logo.png') }}" alt="CashTrack Logo" style="height: 150px;">
+  </div>
+	<h1>Sales Summary</h1>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Branch Name</th>
+                <th>Swiggy Sales (Deducted 30%)</th>
+                <th>Zomato Sales (Deducted 30%)</th>
+                <th>Deducted Sum</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for b in branches %}
+            <tr>
+                <td>{{ b.name }}</td>
+                <td>{{ "%.2f"|format(b.swiggy_deducted) }}</td>
+                <td>{{ "%.2f"|format(b.zomato_deducted) }}</td>
+                <td>{{ "%.2f"|format(b.deducted_sum) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Total Deducted Swiggy Sales: {{ "%.2f"|format(total_swiggy_deducted) }}</h3>
+    <h3>Total Deducted Zomato Sales: {{ "%.2f"|format(total_zomato_deducted) }}</h3>
+    <h3>Common Total (Dine-in + Pick-up + Delivery): {{ common_total }}</h3>
+    <h2>Grand Total Sales: {{ "%.2f"|format(grand_total) }}</h2>
+
+    <a href="{{ url_for('bills') }}">Next: Enter Bills</a>
+</body>
+</html>

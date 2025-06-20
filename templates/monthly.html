@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Monthly Income Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f4f6f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            margin: 0 auto 40px;
+            border-collapse: collapse;
+            width: 60%;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 20px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #5c9ded;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Monthly Income Analysis</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Total Income (₹)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for month, income in zip(months, incomes) %}
+                <tr>
+                    <td>{{ month }}</td>
+                    <td>{{ income }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <canvas id="incomeChart" width="600" height="300" style="display: block; margin: 0 auto;"></canvas>
+
+    <script>
+        const ctx = document.getElementById('incomeChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ months | tojson }},
+                datasets: [{
+                    label: 'Total Monthly Income (₹)',
+                    data: {{ incomes | tojson }},
+                    backgroundColor: 'rgba(92, 157, 237, 0.2)',
+                    borderColor: 'rgba(92, 157, 237, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 5,
+                    pointBackgroundColor: 'rgba(92, 157, 237, 1)',
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Income (₹)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Month'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

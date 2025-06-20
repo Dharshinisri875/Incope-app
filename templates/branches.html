@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Enter Branch Details</title>
+</head>
+<body>
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="{{ url_for('static', filename='cashtrack_logo.png') }}" alt="CashTrack Logo" style="height: 150px;">
+  </div>
+	<h1>Enter details for branch {{ current }} of {{ total }}</h1>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="post">
+        <label for="branch_name">Branch Name:</label>
+        <input type="text" id="branch_name" name="branch_name" required>
+
+        <br/><br/>
+
+        <label for="swiggy">Swiggy Sales:</label>
+        <input type="number" id="swiggy" name="swiggy" min="0" required>
+
+        <br/><br/>
+
+        <label for="zomato">Zomato Sales:</label>
+        <input type="number" id="zomato" name="zomato" min="0" required>
+
+        <br/><br/>
+
+        <button type="submit">Submit Branch</button>
+    </form>
+</body>
+</html>
+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Final Income Result</title>
+</head>
+<body>
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="{{ url_for('static', filename='cashtrack_logo.png') }}" alt="CashTrack Logo" style="height: 150px;">
+  </div>
+	<h1>Final Income Result</h1>
+
+    <p><strong>Grand Total Sales:</strong> {{ "%.2f"|format(grand_total) }}</p>
+    <p><strong>Total Bills Value:</strong> {{ "%.2f"|format(total_bills_value) }}</p>
+
+    <h3>Fixed Costs</h3>
+    <ul>
+        {% for key, value in fixed_costs.items() %}
+            <li>{{ key.replace('_', ' ').title() }}: {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Variable Costs</h3>
+    <ul>
+        <li>Mutton Cost: {{ "%.2f"|format(mutton_cost) }}</li>
+        <li>Egg Cost: {{ "%.2f"|format(egg_cost) }}</li>
+        <li>Parotta Cost: {{ "%.2f"|format(parotta_cost) }}</li>
+        <li>Chappathi Dough Cost: {{ "%.2f"|format(chappathi_dough_cost) }}</li>
+        <li>Packing Cost: {{ "%.2f"|format(packing_cost) }}</li>
+        <li>Labour Cost: {{ "%.2f"|format(labour_cost) }}</li>
+        <li>Advertisement Cost: {{ "%.2f"|format(ad_cost) }}</li>
+    </ul>
+
+    <p><strong>Total Costs:</strong> {{ "%.2f"|format(total_costs) }}</p>
+
+    <h2>Final Income: {{ "%.2f"|format(final_income) }}</h2>
+
+    {% if saved %}
+        <p style="color: green;"><strong>Income saved successfully!</strong></p>
+    {% else %}
+        <form method="POST" action="{{ url_for('save_income') }}">
+            <label for="income_date"><strong>Select Date:</strong></label><br/><br/>
+            <input type="date" id="income_date" name="income_date" required value="{{ current_date }}">
+
+            <!-- Required fields -->
+            <input type="hidden" name="final_income" value="{{ final_income }}">
+            <input type="hidden" name="grand_total" value="{{ grand_total }}">
+            <input type="hidden" name="total_bills_value" value="{{ total_bills_value }}">
+            <input type="hidden" name="mutton_cost" value="{{ mutton_cost }}">
+            <input type="hidden" name="egg_cost" value="{{ egg_cost }}">
+            <input type="hidden" name="parotta_cost" value="{{ parotta_cost }}">
+            <input type="hidden" name="chappathi_dough_cost" value="{{ chappathi_dough_cost }}">
+            <input type="hidden" name="packing_cost" value="{{ packing_cost }}">
+            <input type="hidden" name="labour_cost" value="{{ labour_cost }}">
+            <input type="hidden" name="ad_cost" value="{{ ad_cost }}">
+
+            <button type="submit">💾 Save Income</button>
+        </form>
+    {% endif %}
+
+
+
+    <br/>
+    <a href="{{ url_for('monthly_analysis') }}">📊 View Monthly Income Analysis</a>
+
+
+</body>
+</html>
